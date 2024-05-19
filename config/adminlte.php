@@ -313,6 +313,7 @@ return [
         [
             'text' => 'Dashboard',
             'route' => 'home',
+            'icon' => 'fas fa-fw fa-tachometer-alt'
         ],
         [
             'text' => 'pages',
