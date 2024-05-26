@@ -315,11 +315,11 @@ return [
             'route' => 'admin.home',
             'icon' => 'fas fa-fw fa-tachometer-alt'
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'management'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'company',
+            'route' => 'admin.companies.index',
+            'icon' => 'fab fa-fw fa-buffer',
         ],
         [
             'text' => 'change_password',
