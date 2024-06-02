@@ -30,7 +30,19 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required|max:255',
+            'cif'=>'required|unique:companies|max:9',
+            'description'=>'required|max:255',
+        ]);
+
+        Company::create([
+            'name'=>$request->name,
+            'cif'=>$request->cif,
+            'description'=>$request->description,
+        ]);
+
+        return redirect()->route('admin.companies.index');
     }
 
     /**
@@ -54,7 +66,19 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $request->validate([
+            'name'=>'required|max:255',
+            'cif'=>'required|unique:companies|max:9',
+            'description'=>'required|max:255',
+        ]);
+
+        Company::where('company', $company)->update([
+            'name'=>$request->name,
+            'cif'=>$request->cif,
+            'description'=>$request->description,
+        ]);
+
+        return redirect()->route('admin.companies.index');
     }
 
     /**

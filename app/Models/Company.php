@@ -13,6 +13,12 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'cif',
+        'description'
+    ];
+
     public function groupVpn(): BelongsTo
     {
         return $this->belongsTo(GroupVpn::class);

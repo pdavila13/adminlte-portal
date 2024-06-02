@@ -11,6 +11,8 @@
         $heads = [
             ['label' => 'ID', 'width' => 5],
             'Name',
+            'CIF',
+            'Description',
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -24,32 +26,44 @@
         <div class="card-header">
             <h3 class="card-title">List companies</h3>
             <div class="card-tools">
-                <a class="btn btn-primary btn-sm" href="{{ route('admin.companies.create')}}"><i class="fas fa-plus"></i></a>
+                <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCompanyCreate">
+                    <i class="fas fa-plus"></i>
+                </a>
             </div>
         </div>
+
         <div class="card-body">
             <x-adminlte-datatable id="table2" :heads="$heads">
                 @foreach ($companies as $company)
                     <tr>
                         <td>{{ $company->id }}</td>
                         <td>{{ $company->name }}</td>
+                        <td>{{ $company->cif }}</td>
+                        <td>{{ $company->description }}</td>
                         <td class="text-right">
-                            <a href="{{ route('admin.companies.edit', $company) }}" class="btn btn-info btn-xs">
+                            <a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalCompanyEdit{{ $company->id }}">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('admin.companies.destroy', $company) }}" method="POST" onsubmit="return confirm('{{ __('Are sure want to delete?') }}')" style="display: inline;">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-xs">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCompanyDelete{{ $company->id }}">
+                                <i class="fas fa-ban"></i>
+                            </a>
                         </td>
                     </tr>
+
                 @endforeach
             </x-adminlte-datatable>
         </div>
     </div>
+
+    @foreach ($companies as $company)
+        @include('admin.companies.edit', ['company' => $company])
+        @include('admin.companies.delete')
+    @endforeach
+
+    @include('admin.companies.create')
 @endsection
 
 @section('plugins.Datatables', true)
+
+
+
