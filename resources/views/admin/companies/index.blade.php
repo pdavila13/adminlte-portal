@@ -31,7 +31,7 @@
                 </a>
             </div>
         </div>
-
+        @include('admin.companies.create')
         <div class="card-body">
             <x-adminlte-datatable id="table2" :heads="$heads">
                 @foreach ($companies as $company)
@@ -49,7 +49,6 @@
                             </a>
                         </td>
                     </tr>
-
                 @endforeach
             </x-adminlte-datatable>
         </div>
@@ -59,11 +58,22 @@
         @include('admin.companies.edit', ['company' => $company])
         @include('admin.companies.delete')
     @endforeach
-
-    @include('admin.companies.create')
 @endsection
 
 @section('plugins.Datatables', true)
+
+@section('js')
+    <script src="{{ asset('vendor/jquery-plugin-stringToSlug/jquery.stringToSlug.min.js') }}"></script>
+    <script>
+        $(document).ready( function() {
+            $("#name").stringToSlug({
+                setEvents: 'keyup keydown blur',
+                getPut: '#slug',
+                space: '-'
+            });
+        });
+    </script>
+@stop
 
 
 

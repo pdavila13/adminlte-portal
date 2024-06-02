@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Company;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,14 +33,18 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name'=>'required|max:255',
+            'slug'=>'unique:companies',
             'cif'=>'required|unique:companies|max:9',
-            'description'=>'required|max:255',
         ]);
+
+        return $request->all();
 
         Company::create([
             'name'=>$request->name,
+            'slug'=>Str::slug($request->name),
             'cif'=>$request->cif,
             'description'=>$request->description,
+            'status'=>'1',
         ]);
 
         return redirect()->route('admin.companies.index');
@@ -72,7 +77,7 @@ class CompanyController extends Controller
             'description'=>'required|max:255',
         ]);
 
-        Company::where('company', $company)->update([
+        Company::where('id', $company)->update([
             'name'=>$request->name,
             'cif'=>$request->cif,
             'description'=>$request->description,
