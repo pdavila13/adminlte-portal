@@ -37,8 +37,6 @@ class CompanyController extends Controller
             'cif'=>'required|unique:companies|max:9',
         ]);
 
-        return $request->all();
-
         Company::create([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),
