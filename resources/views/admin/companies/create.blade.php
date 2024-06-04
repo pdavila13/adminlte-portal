@@ -1,40 +1,95 @@
-<form class="needs-validation" novalidate action="{{ route('admin.companies.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <x-adminlte-modal id="modalCompanyCreate" title="Create new company" theme="primary"
-        icon="fas fa-plus" v-centered static-backdrop scrollable>
-        <div class="row">
-            <x-adminlte-input name="name" label="Company name" placeholder="" label-class="text-lightblue"
-            value="{{ old('name') }}" fgroup-class="col-md-6" error-key="name" required>
-                <x-slot name="prependSlot">
-                    <div class="input-group-text">
-                        <i class="fas fa-building text-lightblue"></i>
-                    </div>
-                </x-slot>
-            </x-adminlte-input>
+@extends('adminlte::page')
 
-            <x-adminlte-input type="hidden" name="slug" placeholder="" value="{{ old('slug') }}" readonly />
+@section('title', 'Companies')
 
-            <x-adminlte-input name="cif" label="Tax identification code" placeholder="" label-class="text-lightblue"
-            value="{{ old('cif') }}" fgroup-class="col-md-6" error-key="cif" required>
-                <x-slot name="prependSlot">
-                    <div class="input-group-text">
-                        <i class="fas fa-address-card text-lightblue"></i>
-                    </div>
-                </x-slot>
-            </x-adminlte-input>
+@section('content_header')
+    <h1>Companies</h1>
+@stop
 
-            <x-adminlte-textarea name="description" label="Description" rows=5 label-class="text-lightblue"
-                igroup-size="sm" placeholder="Insert description..." fgroup-class="col-md-12" error-key="description" required>
-                <x-slot name="prependSlot">
-                    <div class="input-group-text">
-                        <i class="fas fa-lg fa-file-alt text-lightblue"></i>
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{ __('Create Company') }}</h3>
+                    <div class="card-tools">
+                        <a href="{{ route('admin.companies.index') }}" class="btn btn-info btn-sm">{{ __('Back') }}</a>
                     </div>
-                </x-slot>
-                {{ old('description') }}
-            </x-adminlte-textarea>
+                </div>
+                {!! Form::open(['route' => 'admin.companies.store']) !!}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('name', 'Name') !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter the name of the company', 'required']) !!}
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('slug', 'Slug') !!}
+                                {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Enter the slug of company', 'readonly']) !!}
+                                @error('slug')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('cif', 'CIF') !!}
+                                {!! Form::text('cif', null, ['class' => 'form-control', 'placeholder' => 'Enter the CIF of the company', 'required']) !!}
+                                @error('cif')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('status', 'Status') !!}
+                                {!! Form::select('status', ['1' => 'Active', '2' => 'Inactive'], null, ['class' => 'form-control']) !!}
+                                @error('status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                {!! Form::label('description', 'Description') !!}
+                                {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Enter the description of the company', 'required']) !!}
+                                @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {!! Form::submit('Create Company', ['class' => 'btn btn-primary float-right']) !!}
+                </div>
+                {!! Form::close() !!}
+            </div>
         </div>
-        <x-slot name="footerSlot">
-            <button type="submit" id="submit" class="btn btn-primary float-right">{{ __('Save') }}</button>
-        </x-slot>
-    </x-adminlte-modal>
-</form>
+    </div>
+</div>
+@stop
+
+@section('js')
+    <script src="{{ asset('vendor/jquery-plugin-stringToSlug/jquery.stringToSlug.min.js') }}"></script>
+    <script>
+        $(document).ready( function() {
+            $("#name").stringToSlug({
+                setEvents: 'keyup keydown blur',
+                getPut: '#slug',
+                space: '-'
+            });
+        });
+    </script>
+@stop

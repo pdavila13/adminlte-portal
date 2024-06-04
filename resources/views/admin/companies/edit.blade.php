@@ -1,54 +1,95 @@
-<form class="needs-validation" novalidate action="{{ route('admin.companies.update',$company->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-    <input type="hidden" name="id" value="{{ $company->id }}">
-    <x-adminlte-modal id="modalCompanyEdit{{$company->id}}" title="Edit company" theme="info"
-        icon="fas fa-plus" v-centered static-backdrop scrollable>
-        <div class="row">
-            <div class="col-lg-6">
-                <x-adminlte-input name="iName" label="Company name" placeholder="" label-class="text-lightblue" required value="{{ $company->name }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-building text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                    @error('iName')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </x-adminlte-input>
-            </div>
+@extends('adminlte::page')
 
-            <div class="col-lg-6">
-                <x-adminlte-input name="iCIF" label="Tax identification code" placeholder="" label-class="text-lightblue" required value="{{ $company->cif }}">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-address-card text-lightblue"></i>
-                        </div>
-                    </x-slot>
-                    @error('iCIF')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </x-adminlte-input>
-            </div>
+@section('title', 'Companies')
 
-            <div class="col-lg-12">
-                <x-adminlte-textarea name="taDesc" label="Description" rows=5 label-class="text-lightblue"
-                    igroup-size="sm" placeholder="Insert description...">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text">
-                            <i class="fas fa-lg fa-file-alt text-lightblue"></i>
+@section('content_header')
+    <h1>Companies</h1>
+@stop
+
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{ __('Edit Company') }}</h3>
+                    <div class="card-tools">
+                        <a href="{{ route('admin.companies.index') }}" class="btn btn-info btn-sm">{{ __('Back') }}</a>
+                    </div>
+                </div>
+                {!! Form::model($company, ['route' => ['admin.companies.update', $company], 'method' => 'put']) !!}
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('name', 'Name') !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter the name of the company', 'required']) !!}
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-                    </x-slot>
-                    {{ $company->description }}
-                </x-adminlte-textarea>
-                @error('taDesc')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('slug', 'Slug') !!}
+                                {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Enter the slug of company', 'readonly']) !!}
+                                @error('slug')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('cif', 'CIF') !!}
+                                {!! Form::text('cif', null, ['class' => 'form-control', 'placeholder' => 'Enter the CIF of the company', 'required']) !!}
+                                @error('cif')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                {!! Form::label('status', 'Status') !!}
+                                {!! Form::select('status', ['1' => 'Active', '2' => 'Inactive'], null, ['class' => 'form-control']) !!}
+                                @error('status')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                {!! Form::label('description', 'Description') !!}
+                                {!! Form::textarea('description', null, ['class' => 'form-control', 'placeholder' => 'Enter the description of the company', 'required']) !!}
+                                @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {!! Form::submit('Edit Company', ['class' => 'btn btn-primary float-right']) !!}
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
-        <x-slot name="footerSlot">
-            <x-adminlte-button theme="secondary" label="Cancel" data-dismiss="modal"/>
-            <x-adminlte-button type="submit" theme="info" label="Save changes"/>
-        </x-slot>
-    </x-adminlte-modal>
-</form>
+    </div>
+</div>
+@stop
+
+@section('js')
+    <script src="{{ asset('vendor/jquery-plugin-stringToSlug/jquery.stringToSlug.min.js') }}"></script>
+    <script>
+        $(document).ready( function() {
+            $("#name").stringToSlug({
+                setEvents: 'keyup keydown blur',
+                getPut: '#slug',
+                space: '-'
+            });
+        });
+    </script>
+@stop
