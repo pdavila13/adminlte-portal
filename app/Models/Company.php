@@ -21,6 +21,11 @@ class Company extends Model
         'status',
     ];
 
+    // public function getRouteKeyName(): string
+    // {
+    //     return 'slug';
+    // }
+
     public function groupVpn(): BelongsTo
     {
         return $this->belongsTo(GroupVpn::class);

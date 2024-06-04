@@ -32,17 +32,19 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|max:255',
-            'slug'=>'unique:companies',
-            'cif'=>'required|unique:companies|max:9',
+            'name'=>'required',
+            'slug'=>'required|unique:companies',
+            'cif'=>"required|unique:companies,cif|max:9",
+            'description'=>'required',
+            'status'=>'required'
         ]);
 
         Company::create([
             'name'=>$request->name,
-            'slug'=>Str::slug($request->name),
+            'slug'=>Str::slug($request->slug),
             'cif'=>$request->cif,
             'description'=>$request->description,
-            'status'=>'1',
+            'status'=>$request->status
         ]);
 
         return redirect()->route('admin.companies.index');
@@ -70,15 +72,19 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $request->validate([
-            'name'=>'required|max:255',
-            'cif'=>'required|unique:companies|max:9',
-            'description'=>'required|max:255',
+            'name'=>'required',
+            'slug'=>"required|unique:companies,slug,$company->id",
+            'cif'=>"required|unique:companies,cif,$company->id|max:9",
+            'description'=>'required',
+            'status'=>'required'
         ]);
 
-        Company::where('id', $company)->update([
+        Company::where('id', $company->id)->update([
             'name'=>$request->name,
+            'slug'=>Str::slug($request->slug),
             'cif'=>$request->cif,
             'description'=>$request->description,
+            'status'=>$request->status
         ]);
 
         return redirect()->route('admin.companies.index');
@@ -89,7 +95,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $company->delete();
+        Company::where('id', $company->id)->delete();
         return redirect()->route('admin.companies.index');
     }
 }
