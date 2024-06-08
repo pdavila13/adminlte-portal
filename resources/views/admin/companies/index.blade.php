@@ -1,27 +1,14 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
-@section('title', 'Companies')
+{{-- Customize layout sections --}}
 
-@section('content_header')
-    <h1>Companies</h1>
-@stop
+@section('subtitle', 'Companies')
+@section('content_header_title', 'Home')
+@section('content_header_subtitle', 'Companies')
 
-@section('content')
-    @php
-        $heads = [
-            ['label' => 'ID', 'width' => 5],
-            'Name',
-            'CIF',
-            'Description',
-            ['label' => 'Actions', 'no-export' => true, 'width' => 5],
-        ];
+{{-- Content body: main page content --}}
 
-        $config = [
-        'order' => [[1, 'des']],
-        'columns' => [null, null, null, ['orderable' => false]],
-        ];
-    @endphp
-
+@section('content_body')
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">List companies</h3>
@@ -30,32 +17,51 @@
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
+
+            @include('admin.companies.modal.create')
         </div>
-        {{-- @include('admin.companies.create') --}}
         <div class="card-body">
-            <x-adminlte-datatable id="table2" :heads="$heads">
-                @foreach ($companies as $company)
+            <table class="table table-striped" id="companyTable" style="width:100%">
+                <thead>
                     <tr>
-                        <td>{{ $company->id }}</td>
-                        <td>{{ $company->name }}</td>
-                        <td>{{ $company->cif }}</td>
-                        <td>{{ $company->description }}</td>
-                        <td class="text-right">
-                            <a href="{{route('admin.companies.edit', $company)}}" class="btn btn-info btn-xs">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCompanyDelete{{ $company->id }}">
-                                <i class="fas fa-ban"></i>
-                            </a>
-                        </td>
+                        <th>{{ __('ID') }}</th>
+                        <th>{{ __('Name') }}</th>
+                        <th>{{ __('CIF') }}</th>
+                        <th>{{ __('Description') }}</th>
+                        <th style="text-align: right">{{ __('Actions') }}</th>
                     </tr>
-                @endforeach
-            </x-adminlte-datatable>
+                </thead>
+                <tbody>
+                    @foreach ($companies as $company)
+                        <tr>
+                            <td>{{ $company->id }}</td>
+                            <td>{{ $company->name }}</td>
+                            <td>{{ $company->cif }}</td>
+                            <td>{{ $company->description }}</td>
+                            <td style="text-align: right">
+                                <a href="{{route('admin.companies.edit', $company)}}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalCompanyDelete{{ $company->id }}">
+                                    <i class="fas fa-ban"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-    @foreach ($companies as $company)
-        @include('admin.companies.modal.delete')
-    @endforeach
-@endsection
 
-@section('plugins.Datatables', true)
+    @foreach ( $companies as $company )
+        @include('admin.companies.modal.delete', ['company' => $company])
+    @endforeach
+@stop
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#companyTable').DataTable();
+        });
+    </script>
+@endpush
