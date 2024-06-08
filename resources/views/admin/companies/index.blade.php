@@ -1,13 +1,10 @@
 @extends('layouts.app')
 
 {{-- Customize layout sections --}}
-
 @section('subtitle', 'Companies')
-@section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Companies')
+@section('content_header_title', 'Companies')
 
 {{-- Content body: main page content --}}
-
 @section('content_body')
     <div class="card">
         <div class="card-header">
@@ -58,6 +55,7 @@
     @endforeach
 @stop
 
+{{-- Push extra scripts --}}
 @push('js')
     <script>
         $(document).ready(function() {
