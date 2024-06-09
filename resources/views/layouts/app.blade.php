@@ -1,14 +1,12 @@
 @extends('adminlte::page')
 
 {{-- Extend and customize the browser title --}}
-
 @section('title')
     {{ config('adminlte.title') }}
     @hasSection('subtitle') | @yield('subtitle') @endif
 @stop
 
 {{-- Extend and customize the page content header --}}
-
 @section('content_header')
     @hasSection('content_header_title')
         <h1 class="text-muted">
@@ -25,13 +23,11 @@
 @stop
 
 {{-- Rename section content to content_body --}}
-
 @section('content')
     @yield('content_body')
 @stop
 
 {{-- Create a common footer --}}
-
 @section('footer')
     <div class="float-right">
         Version: {{ config('app.version', '1.0.0') }}
@@ -45,31 +41,24 @@
 @stop
 
 {{-- Add common Javascript/Jquery code --}}
-
 @push('js')
-<script>
+    <script>
 
-    $(document).ready(function() {
-        // Add your common script logic here...
-    });
-
-</script>
+        $(document).ready(function() {
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
+        });
+    </script>
+    <x-alert />
 @endpush
 
 {{-- Add common CSS customizations --}}
-
 @push('css')
-<style type="text/css">
+    <style type="text/css">
 
-    {{-- You can add AdminLTE customizations here --}}
-    /*
-    .card-header {
-        border-bottom: none;
-    }
-    .card-title {
-        font-weight: 600;
-    }
-    */
+        {{-- You can add AdminLTE customizations here --}}
 
-</style>
+    </style>
 @endpush

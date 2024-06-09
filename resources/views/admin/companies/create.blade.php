@@ -3,6 +3,7 @@
 {{-- Customize layout sections --}}
 @section('subtitle', 'Companies')
 @section('content_header_title', 'Companies')
+@section('content_header_subtitle', 'Create a new company')
 
 {{-- Content body: main page content --}}
 @section('content_body')

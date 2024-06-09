@@ -47,7 +47,7 @@ class CompanyController extends Controller
             'status'=>$request->status
         ]);
 
-        return redirect()->route('admin.companies.index');
+        return redirect()->route('admin.companies.index')->with('success', 'Company created successfully.');
     }
 
     /**
@@ -87,7 +87,7 @@ class CompanyController extends Controller
             'status'=>$request->status
         ]);
 
-        return redirect()->route('admin.companies.index');
+        return redirect()->route('admin.companies.index')->with('success', 'Company updated successfully.');
     }
 
     /**
@@ -96,6 +96,6 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         Company::where('id', $company->id)->delete();
-        return redirect()->route('admin.companies.index');
+        return redirect()->route('admin.companies.index')->with('success', 'Company deleted successfully.');
     }
 }

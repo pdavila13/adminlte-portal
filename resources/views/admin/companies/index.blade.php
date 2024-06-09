@@ -3,12 +3,12 @@
 {{-- Customize layout sections --}}
 @section('subtitle', 'Companies')
 @section('content_header_title', 'Companies')
+@section('content_header_subtitle', 'List of companies')
 
 {{-- Content body: main page content --}}
 @section('content_body')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">List companies</h3>
             <div class="card-tools">
                 <a href="{{route('admin.companies.create')}}" class="btn btn-sm btn-primary">
                     <i class="fas fa-plus"></i>
@@ -18,7 +18,7 @@
             @include('admin.companies.modal.create')
         </div>
         <div class="card-body">
-            <table class="table table-striped" id="companyTable" style="width:100%">
+            <table class="table table-striped" id="companyTable">
                 <thead>
                     <tr>
                         <th>{{ __('ID') }}</th>
@@ -59,7 +59,19 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            $('#companyTable').DataTable();
+            var $configDataTable = {
+                "paging": true,
+                "ordering": true,
+                "info": true,
+                "responsive": true,
+                "autoWidth": false,
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json"
+                }
+            };
+
+            $('#companyTable').DataTable($configDataTable);
         });
     </script>
 @endpush
+<x-alert />
