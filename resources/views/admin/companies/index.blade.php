@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-tools">
-                <a href="{{route('admin.companies.create')}}" class="btn btn-sm btn-primary">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalCompanyCreate">
                     <i class="fas fa-plus"></i>
                 </a>
             </div>
@@ -36,10 +36,10 @@
                             <td>{{ $company->cif }}</td>
                             <td>{{ $company->description }}</td>
                             <td style="text-align: right">
-                                <a href="{{route('admin.companies.edit', $company)}}" class="btn btn-info btn-sm">
+                                <a href="{{route('admin.companies.edit', $company)}}" class="btn btn-info btn-xs">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalCompanyDelete{{ $company->id }}">
+                                <a href="#" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCompanyDelete{{ $company->id }}">
                                     <i class="fas fa-ban"></i>
                                 </a>
                             </td>

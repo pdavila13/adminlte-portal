@@ -14,7 +14,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::where('status', 2)->get();
         return view('admin.companies.index', compact('companies'));
     }
 
@@ -33,7 +33,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'slug'=>'required|unique:companies',
+            'slug'=>'unique:companies',
             'cif'=>"required|unique:companies,cif|max:9",
             'description'=>'required',
             'status'=>'required'
@@ -73,7 +73,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'slug'=>"required|unique:companies,slug,$company->id",
+            'slug'=>"unique:companies,slug,$company->id",
             'cif'=>"required|unique:companies,cif,$company->id|max:9",
             'description'=>'required',
             'status'=>'required'
