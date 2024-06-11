@@ -11,6 +11,14 @@ class GroupVpn extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'network',
+        'description',
+        'company_id',
+    ];
+
     public function company() : BelongsTo
     {
         return $this->belongsTo(Company::class);
