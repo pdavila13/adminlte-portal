@@ -311,25 +311,23 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'Dashboard',
+            'text' => 'dashboard',
             'route' => 'admin.home',
             'icon' => 'fas fa-fw fa-tachometer-alt'
         ],
         ['header' => 'management'],
         [
-            'text' => 'systems',
-            'icon' => 'fas fa-fw fa-star',
+            'text' => 'external_companies',
+            'icon' => 'fas fa-fw fa-globe',
             'submenu' => [
                 [
-                    'text' => 'company',
+                    'text' => 'companies',
                     'route' => 'admin.companies.index',
-                    'icon' => 'fab fa-fw fa-buffer',
                     'active' => ['admin/companies*'],
                 ],
                 [
-                    'text' => 'group_vpn',
+                    'text' => 'groups_vpn',
                     'route' => 'admin.group_vpns.index',
-                    'icon' => 'fas fa-fw fa-globe',
                     'active' => ['admin/group_vpns*'],
                 ],
             ],
