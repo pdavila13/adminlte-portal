@@ -1,5 +1,5 @@
 {!! Form::open(['route' => ['admin.companies.store'], 'method' => 'POST']) !!}
-    <x-adminlte-modal id="modalCompanyCreate" title="Create new company" theme="primary" v-centered static-backdrop scrollable>
+    <x-adminlte-modal id="modalCompanyCreate" title="{{ __('Create new company') }}" theme="primary" v-centered static-backdrop scrollable>
         <div class="row">
             @include('admin.companies.partials.form')
         </div>

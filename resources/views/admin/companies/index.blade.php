@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 {{-- Customize layout sections --}}
-@section('subtitle', 'Companies')
-@section('content_header_title', 'Companies')
-@section('content_header_subtitle', 'List of companies')
+@section('subtitle', __('Companies'))
+@section('content_header_title', __('Companies'))
+@section('content_header_subtitle', __('Company List'))
 
 {{-- Content body: main page content --}}
 @section('content_body')
@@ -61,12 +61,12 @@
         $(document).ready(function() {
             var $configDataTable = {
                 "paging": true,
-                "ordering": true,
+                "ordering": false,
                 "info": true,
                 "responsive": true,
                 "autoWidth": false,
                 "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json"
+                    "url": "https://cdn.datatables.net/plug-ins/2.0.8/i18n/ca.json"
                 }
             };
 
@@ -74,4 +74,3 @@
         });
     </script>
 @endpush
-<x-alert />
