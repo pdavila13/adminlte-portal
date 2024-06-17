@@ -1,18 +1,17 @@
 @extends('layouts.app')
 
 {{-- Customize layout sections --}}
-@section('subtitle', 'Groups VPN')
-@section('content_header_title', 'Groups VPN')
-@section('content_header_subtitle', 'Edit group VPN')
+@section('subtitle', __('Groups VPN'))
+@section('content_header_title', __('Edit group VPN'))
 
 {{-- Content body: main page content --}}
 @section('content_body')
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-primary">
+                <div class="card-info">
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('Edit Group VPN') }}</h3>
+                        <h3 class="card-title">{{ __('Edit') }}</h3>
                         <div class="card-tools">
                             <a href="{{ route('admin.group_vpns.index') }}" class="btn btn-dark btn-sm">{{ __('Back') }}</a>
                         </div>
@@ -24,7 +23,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            {!! Form::submit('Save', ['class' => 'btn btn-primary float-right']) !!}
+                            {!! Form::submit(__('Save changes'), ['class' => 'btn btn-info float-right']) !!}
                         </div>
                     {!! Form::close() !!}
                 </div>

@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 {{-- Customize layout sections --}}
-@section('subtitle', 'Groups VPN')
-@section('content_header_title', 'Groups VPN')
-@section('content_header_subtitle', 'List of Groups VPN')
+@section('subtitle', __('Groups VPN'))
+@section('content_header_title', __('Groups VPN List'))
 
 {{-- Content body: main page content --}}
 @section('content_body')
