@@ -2,8 +2,7 @@
 
 {{-- Customize layout sections --}}
 @section('subtitle', __('Companies'))
-@section('content_header_title', __('Companies'))
-@section('content_header_subtitle', __('Company List'))
+@section('content_header_title', __('Company List'))
 
 {{-- Content body: main page content --}}
 @section('content_body')

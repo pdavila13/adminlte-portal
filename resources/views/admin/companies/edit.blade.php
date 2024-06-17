@@ -2,8 +2,7 @@
 
 {{-- Customize layout sections --}}
 @section('subtitle', __('Companies'))
-@section('content_header_title', __('Companies'))
-@section('content_header_subtitle', __('Edit company'))
+@section('content_header_title', __('Edit company'))
 
 {{-- Content body: main page content --}}
 @section('content_body')
@@ -12,7 +11,7 @@
             <div class="card">
                 <div class="card-info">
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('Edit company') }}</h3>
+                        <h3 class="card-title">{{ __('Edit') }}</h3>
                         <div class="card-tools">
                             <a href="{{ route('admin.companies.index') }}" class="btn btn-dark btn-sm">{{ __('Back') }}</a>
                         </div>
